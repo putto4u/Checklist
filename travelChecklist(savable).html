@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌴 발리 여행 준비물 체크리스트</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+        h1 {
+            background-color: #2c3e50;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 0;
+            border-radius: 6px;
+            font-size: 20pt;
+        }
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 12px 0 4px 0;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .progress-wrap {
+            flex: 1;
+            min-width: 180px;
+        }
+        .progress-label {
+            font-size: 9.5pt;
+            color: #7f8c8d;
+            margin-bottom: 3px;
+        }
+        .progress-bar-bg {
+            background: #ecf0f1;
+            border-radius: 6px;
+            height: 10px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            background: #00a896;
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s;
+        }
+        .reset-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 7px 14px;
+            font-size: 9.5pt;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .reset-btn:hover { background-color: #c0392b; }
+        h2 {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            padding: 12px 18px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 13pt;
+            border-left: 6px solid #00a896;
+            border-radius: 0 4px 4px 0;
+        }
+        .section-container { margin-bottom: 25px; }
+        ul { list-style-type: none; padding-left: 0; margin: 0; }
+        li {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 1px solid #eaecee;
+            font-size: 11pt;
+            transition: background-color 0.2s;
+        }
+        li:hover { background-color: #f8f9f9; }
+        .checked { text-decoration: line-through; color: #95a5a6; }
+        .checkbox-input { margin-right: 15px; transform: scale(1.2); cursor: pointer; }
+        .item-text { flex-grow: 1; cursor: pointer; }
+        .tag-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            font-size: 8.5pt;
+            font-weight: bold;
+            border-radius: 12px;
+            margin-right: 12px;
+            text-align: center;
+            min-width: 60px;
+            white-space: nowrap;
+        }
+        .tag-essential  { background-color: #fdedec; color: #c0392b; border: 1px solid #f9d5d2; }
+        .tag-recommend  { background-color: #ebf5fb; color: #2980b9; border: 1px solid #d4e6f1; }
+        .tag-basic      { background-color: #fef9e7; color: #d4ac0d; border: 1px solid #fcf3cf; }
+        .tag-beach      { background-color: #e8f8f5; color: #117a65; border: 1px solid #a3e4d7; }
+        .tag-food       { background-color: #fdf2e9; color: #a04000; border: 1px solid #f9d5b4; }
+        .tag-snack      { background-color: #f5eef8; color: #7d3c98; border: 1px solid #d7bde2; }
+        .tag-med        { background-color: #fdedec; color: #922b21; border: 1px solid #e8a89c; }
+        .tag-care       { background-color: #fef5fb; color: #a93226; border: 1px solid #f1a7d0; }
+        .tag-hygiene    { background-color: #eaf4fb; color: #1a5276; border: 1px solid #aed6f1; }
+        .tag-toiletry   { background-color: #f0f9ff; color: #1f618d; border: 1px solid #85c1e9; }
+        .tag-safety     { background-color: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+        .delete-btn {
+            background-color: #e74c3c; color: white; border: none; border-radius: 4px;
+            padding: 5px 10px; font-size: 9pt; cursor: pointer; margin-left: 10px;
+            opacity: 0.7; transition: opacity 0.2s;
+        }
+        li:hover .delete-btn { opacity: 1; }
+        .add-form {
+            display: flex; margin-top: 15px; gap: 10px;
+            background-color: #f4f6f7; padding: 12px; border-radius: 6px;
+        }
+        .add-form select, .add-form input {
+            padding: 8px; border: 1px solid #bdc3c7; border-radius: 4px; font-size: 10pt;
+        }
+        .add-form select { flex: 1; }
+        .add-form input  { flex: 3; }
+        .add-btn {
+            background-color: #00a896; color: white; border: none; border-radius: 4px;
+            padding: 8px 16px; font-weight: bold; cursor: pointer; transition: background-color 0.2s;
+        }
+        .add-btn:hover { background-color: #008475; }
+        .tip-box {
+            background-color: #e0f2f1; border-left: 4px solid #00897b;
+            padding: 15px; margin-top: 30px; border-radius: 0 6px 6px 0; font-size: 10pt;
+        }
+        .warn-box {
+            background-color: #fff8e1; border-left: 4px solid #f9a825;
+            padding: 12px 15px; margin-top: 10px; border-radius: 0 6px 6px 0;
+            font-size: 9.5pt; color: #5d4037;
+        }
+        .save-toast {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+            background: #2c3e50; color: #fff; padding: 10px 22px;
+            border-radius: 20px; font-size: 10pt; opacity: 0;
+            transition: opacity 0.4s; pointer-events: none; z-index: 999;
+        }
+        .save-toast.show { opacity: 1; }
+    </style>
+</head>
+<body>
+
+<h1>🌴 발리 여행 준비물 인터랙티브 체크리스트</h1>
+
+<!-- 진행률 + 전체 초기화 -->
+<div class="header-bar">
+    <div class="progress-wrap">
+        <div class="progress-label" id="progress-label">준비 완료: 0 / 0 항목</div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar" style="width:0%"></div></div>
+    </div>
+    <button class="reset-btn" onclick="resetAll()">🔄 전체 체크 초기화</button>
+</div>
+
+<div id="checklist-app">
+
+    <div class="section-container">
+        <h2>1. 여권·서류·결제</h2>
+        <ul id="list-1"></ul>
+        <div class="add-form">
+            <select id="select-1"><option value="필수">필수</option><option value="추천">추천</option></select>
+            <input type="text" id="input-1" placeholder="준비물/품목을 입력하세요">
+            <button class="add-btn" onclick="addItem('1')">추가</button>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h2>2. 전자기기</h2>
+        <ul id="list-2"></ul>
+        <div class="add-form">
+            <select id="select-2"><option value="필수">필수</option><option value="추천">추천</option></select>
+            <input type="text" id="input-2" placeholder="준비물/품목을 입력하세요">
+            <button class="add-btn" onclick="addItem('2')">추가</button>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h2>3. 의류</h2>
+        <ul id="list-3"></ul>
+        <div class="add-form">
+            <select id="select-3"><option value="기본 의류">기본 의류</option><option value="해변·수영">해변·수영</option></select>
+            <input type="text" id="input-3" placeholder="준비물/품목을 입력하세요">
+            <button class="add-btn" onclick="addItem('3')">추가</button>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h2>4. 위생·세면도구</h2>
+        <ul id="list-4"></ul>
+        <div class="add-form">
+            <select id="select-4"><option value="위생용품">위생용품</option><option value="세면도구">세면도구</option></select>
+            <input type="text" id="input-4" placeholder="준비물/품목을 입력하세요">
+            <button class="add-btn" onclick="addItem('4')">추가</button>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h2>5. 식재료</h2>
+        <ul id="list-5"></ul>
+        <div class="add-form">
+            <select id="select-5"><option value="식재료">식재료</option><option value="간식·음료">간식·음료</option></select>
+            <input type="text" id="input-5" placeholder="준비물/품목을 입력하세요">
+            <button class="add-btn" onclick="addItem('5')">추가</button>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h2>6. 응급·상비 의약품</h2>
+        <div class="warn-box">
+            ⚠️ <strong>주의:</strong> 처방약은 반드시 영문 처방전을 함께 지참하세요. 인도네시아 입국 시 마약류·향정신성 의약품은 별도 반입 허가가 필요합니다.
+        </div>
+        <ul id="list-6"></ul>
+        <div class="add-form">
+            <select id="select-6"><option value="상비약">상비약</option><option value="응급처치">응급처치</option><option value="케어용품">케어용품</option></select>
+            <input type="text" id="input-6" placeholder="준비물/품목을 입력하세요">
+            <button class="add-btn" onclick="addItem('6')">추가</button>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h2>7. 선케어·방충·안전용품</h2>
+        <ul id="list-7"></ul>
+        <div class="add-form">
+            <select id="select-7"><option value="선케어">선케어</option><option value="방충·안전">방충·안전</option></select>
+            <input type="text" id="input-7" placeholder="준비물/품목을 입력하세요">
+            <button class="add-btn" onclick="addItem('7')">추가</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="tip-box">
+    <strong>💡 사용 방법:</strong> 체크박스를 클릭하면 완료 항목에 취소선이 표시되며, <strong>앱을 닫았다 다시 열어도 체크 상태가 유지</strong>됩니다. 항목 추가·삭제도 저장됩니다. 전체를 초기화하려면 상단 [🔄 전체 체크 초기화] 버튼을 사용하세요.
+</div>
+
+<div class="save-toast" id="toast">💾 저장되었습니다</div>
+
+<script>
+// ── 기본 데이터 ──────────────────────────────────────────────
+const DEFAULT_DATA = {
+    "1": [
+        { type: "필수", name: "여권 (유효기간 6개월 이상)" },
+        { type: "필수", name: "왕복 항공권 (E-ticket)" },
+        { type: "필수", name: "숙소 예약 확인서" },
+        { type: "필수", name: "전자비자(e-VOA) 또는 비자 관련 서류" },
+        { type: "필수", name: "여행자 보험 증서" },
+        { type: "필수", name: "신용카드·체크카드" },
+        { type: "필수", name: "현금 (인도네시아 루피아 또는 달러)" },
+        { type: "필수", name: "국제운전면허증 (오토바이·차량 렌트 시)" },
+        { type: "추천", name: "여권 사본 (종이 또는 사진)" },
+        { type: "추천", name: "비상 연락처 메모 (대사관·병원·숙소)" },
+        { type: "추천", name: "현지 유심 또는 포켓 와이파이" }
+    ],
+    "2": [
+        { type: "필수", name: "휴대폰" },
+        { type: "필수", name: "충전기" },
+        { type: "필수", name: "보조배터리" },
+        { type: "필수", name: "USB 케이블" },
+        { type: "필수", name: "이어폰 또는 에어팟" },
+        { type: "추천", name: "멀티 어댑터 (C/F 타입 호환)" },
+        { type: "추천", name: "노트북·태블릿" },
+        { type: "추천", name: "카메라" },
+        { type: "추천", name: "SD카드 (여분 포함)" },
+        { type: "추천", name: "방수 휴대폰 케이스" },
+        { type: "추천", name: "셀카봉·삼각대" }
+    ],
+    "3": [
+        { type: "기본 의류", name: "반팔 티셔츠" },
+        { type: "기본 의류", name: "반바지" },
+        { type: "기본 의류", name: "긴바지 1~2벌 (사원 방문용)" },
+        { type: "기본 의류", name: "속옷" },
+        { type: "기본 의류", name: "양말" },
+        { type: "기본 의류", name: "잠옷" },
+        { type: "기본 의류", name: "얇은 카디건·겉옷 (냉방 대비)" },
+        { type: "해변·수영", name: "수영복 / 래쉬가드" },
+        { type: "해변·수영", name: "아쿠아슈즈 / 샌들" },
+        { type: "해변·수영", name: "선글라스" },
+        { type: "해변·수영", name: "모자 (챙 넓은 것 권장)" },
+        { type: "해변·수영", name: "비치타월" },
+        { type: "해변·수영", name: "방수팩" }
+    ],
+    "4": [
+        { type: "위생용품", name: "물티슈 (대용량)" },
+        { type: "위생용품", name: "손 소독제" },
+        { type: "위생용품", name: "마스크" },
+        { type: "위생용품", name: "휴대용 화장지" },
+        { type: "위생용품", name: "생리용품 (필요 시)" },
+        { type: "세면도구", name: "샴푸·린스·바디워시 (소분)" },
+        { type: "세면도구", name: "치약·칫솔" },
+        { type: "세면도구", name: "면도기" },
+        { type: "세면도구", name: "헤어드라이어 (숙소 미비치 대비)" },
+        { type: "세면도구", name: "세안용품·스킨케어" },
+        { type: "세면도구", name: "여성용 화장품 파우치" }
+    ],
+    "5": [
+        { type: "식재료", name: "라면" },
+        { type: "식재료", name: "사발면" },
+        { type: "식재료", name: "즉석밥" },
+        { type: "식재료", name: "고추장·쌈장 (소포장)" },
+        { type: "식재료", name: "김 (도시락용)" },
+        { type: "식재료", name: "누룽지·미숫가루" },
+        { type: "식재료", name: "컵국·된장국 (분말)" },
+        { type: "간식·음료", name: "과자·크래커" },
+        { type: "간식·음료", name: "에너지바·견과류" },
+        { type: "간식·음료", name: "커피믹스·티백" },
+        { type: "간식·음료", name: "이온음료 분말 (포카리 등)" }
+    ],
+    "6": [
+        { type: "상비약", name: "해열·진통제 (타이레놀 등)" },
+        { type: "상비약", name: "지사제 (설사 대비 필수)" },
+        { type: "상비약", name: "정장제 (유산균·정로환)" },
+        { type: "상비약", name: "소화제" },
+        { type: "상비약", name: "멀미약 (이동 많을 경우)" },
+        { type: "상비약", name: "종합감기약" },
+        { type: "상비약", name: "알레르기약 (항히스타민제)" },
+        { type: "상비약", name: "안약 (인공눈물)" },
+        { type: "상비약", name: "처방약 (개인 지병 약 + 영문 처방전)" },
+        { type: "응급처치", name: "밴드·반창고 (다양한 크기)" },
+        { type: "응급처치", name: "멸균 거즈·의료용 테이프" },
+        { type: "응급처치", name: "상처 소독약 (베타딘 등)" },
+        { type: "응급처치", name: "탄력 붕대" },
+        { type: "응급처치", name: "핀셋 (산호·가시 제거용)" },
+        { type: "케어용품", name: "체온계" },
+        { type: "케어용품", name: "모기 물린 데 바르는 약 (물파스 등)" },
+        { type: "케어용품", name: "선번 애프터 케어 (쿨링 젤)" },
+        { type: "케어용품", name: "무좀약·항진균 크림 (열대기후 대비)" }
+    ],
+    "7": [
+        { type: "선케어", name: "선크림 SPF 50+ (충분한 양)" },
+        { type: "선케어", name: "선스프레이 (외출 중 덧바름용)" },
+        { type: "선케어", name: "자외선 차단 쿨토시·암커버" },
+        { type: "방충·안전", name: "모기 기피제 (DEET 또는 이카리딘 성분)" },
+        { type: "방충·안전", name: "모기장 (숙소 환경 불량 대비)" },
+        { type: "방충·안전", name: "자물쇠 (숙소 사물함·가방용)" },
+        { type: "방충·안전", name: "목 지갑 / 복대 (소매치기 방지)" },
+        { type: "방충·안전", name: "비상 호루라기" },
+        { type: "방충·안전", name: "우비·경량 우산 (스콜 대비)" }
+    ]
+};
+
+const TAG_MAP = {
+    "필수":    "tag-essential",
+    "추천":    "tag-recommend",
+    "기본 의류":"tag-basic",
+    "해변·수영":"tag-beach",
+    "위생용품": "tag-hygiene",
+    "세면도구": "tag-toiletry",
+    "식재료":  "tag-food",
+    "간식·음료":"tag-snack",
+    "상비약":  "tag-med",
+    "응급처치": "tag-med",
+    "케어용품": "tag-care",
+    "선케어":  "tag-snack",
+    "방충·안전":"tag-safety"
+};
+
+const LS_DATA    = "bali_data";    // 항목 목록 저장 키
+const LS_CHECKS  = "bali_checks";  // 체크 상태 저장 키
+
+// ── 저장 / 불러오기 ───────────────────────────────────────────
+function loadData() {
+    try {
+        const saved = localStorage.getItem(LS_DATA);
+        return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_DATA));
+    } catch(e) {
+        return JSON.parse(JSON.stringify(DEFAULT_DATA));
+    }
+}
+
+function saveData() {
+    localStorage.setItem(LS_DATA, JSON.stringify(appData));
+}
+
+function loadChecks() {
+    try {
+        const saved = localStorage.getItem(LS_CHECKS);
+        return saved ? JSON.parse(saved) : {};
+    } catch(e) { return {}; }
+}
+
+function saveChecks() {
+    localStorage.setItem(LS_CHECKS, JSON.stringify(checkState));
+    showToast();
+}
+
+// ── 상태 ──────────────────────────────────────────────────────
+let appData    = loadData();
+let checkState = loadChecks(); // { "sectionId-index": true/false }
+
+// ── 진행률 ───────────────────────────────────────────────────
+function updateProgress() {
+    let total = 0, done = 0;
+    Object.keys(appData).forEach(sid => {
+        appData[sid].forEach((_, idx) => {
+            total++;
+            if (checkState[`${sid}-${idx}`]) done++;
+        });
+    });
+    const pct = total ? Math.round(done / total * 100) : 0;
+    document.getElementById("progress-label").textContent = `준비 완료: ${done} / ${total} 항목 (${pct}%)`;
+    document.getElementById("progress-bar").style.width = pct + "%";
+}
+
+// ── 렌더링 ───────────────────────────────────────────────────
+function renderList(sid) {
+    const ul = document.getElementById(`list-${sid}`);
+    ul.innerHTML = "";
+    appData[sid].forEach((item, idx) => {
+        const li = document.createElement("li");
+        const badgeClass = TAG_MAP[item.type] || "tag-recommend";
+        const isChecked  = !!checkState[`${sid}-${idx}`];
+        li.innerHTML = `
+            <input type="checkbox" class="checkbox-input" ${isChecked ? "checked" : ""}
+                onchange="toggleCheck('${sid}', ${idx}, this)">
+            <span class="tag-badge ${badgeClass}">${item.type}</span>
+            <span class="item-text ${isChecked ? "checked" : ""}"
+                onclick="clickText('${sid}', ${idx}, this)">${item.name}</span>
+            <button class="delete-btn" onclick="deleteItem('${sid}', ${idx})">삭제</button>
+        `;
+        ul.appendChild(li);
+    });
+    updateProgress();
+}
+
+function renderAll() {
+    Object.keys(appData).forEach(sid => renderList(sid));
+}
+
+// ── 체크 토글 ────────────────────────────────────────────────
+function toggleCheck(sid, idx, cb) {
+    const key = `${sid}-${idx}`;
+    checkState[key] = cb.checked;
+    const span = cb.parentElement.querySelector(".item-text");
+    cb.checked ? span.classList.add("checked") : span.classList.remove("checked");
+    saveChecks();
+    updateProgress();
+}
+
+function clickText(sid, idx, span) {
+    const cb = span.parentElement.querySelector(".checkbox-input");
+    cb.checked = !cb.checked;
+    toggleCheck(sid, idx, cb);
+}
+
+// ── 항목 추가 ────────────────────────────────────────────────
+function addItem(sid) {
+    const select = document.getElementById(`select-${sid}`);
+    const input  = document.getElementById(`input-${sid}`);
+    const name   = input.value.trim();
+    if (!name) { alert("준비물/품목 내용을 입력하세요."); return; }
+    appData[sid].push({ type: select.value, name });
+    saveData();
+    renderList(sid);
+    input.value = "";
+}
+
+// ── 항목 삭제 ────────────────────────────────────────────────
+function deleteItem(sid, idx) {
+    // 삭제 후 인덱스 재정렬: 삭제되는 항목 체크 제거, 뒤 항목들 인덱스 한 칸씩 당김
+    const maxIdx = appData[sid].length - 1;
+    for (let i = idx; i < maxIdx; i++) {
+        checkState[`${sid}-${i}`] = !!checkState[`${sid}-${i+1}`];
+    }
+    delete checkState[`${sid}-${maxIdx}`];
+    appData[sid].splice(idx, 1);
+    saveData();
+    saveChecks();
+    renderList(sid);
+}
+
+// ── 전체 초기화 ──────────────────────────────────────────────
+function resetAll() {
+    if (!confirm("모든 체크 상태를 초기화하시겠습니까?")) return;
+    checkState = {};
+    saveChecks();
+    renderAll();
+}
+
+// ── 토스트 알림 ──────────────────────────────────────────────
+let toastTimer;
+function showToast() {
+    const t = document.getElementById("toast");
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove("show"), 1500);
+}
+
+// ── 초기 실행 ────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", renderAll);
+</script>
+</body>
+</html>
